@@ -1,6 +1,6 @@
 package pixelData;
 
-import pixelSorting.Constants;
+import utils.Constants;
 
 public class PixelData {
 	// CONSTANTS:
@@ -46,6 +46,33 @@ public class PixelData {
 		// get BLUE
 		pval[BLUE] = p & 0xff;
 	}
+	
+	/*
+	 * Grayscale methods use (gray = red *0.3 + green * 0.59 + blue * 0.11)
+	 */
+	
+	//note, this method doesn't actually set the pixel value, just returns the gray value
+	public int getGrayPixelValue(){
+		int gray = (int) ((pval[1] * 0.3) + (pval[2] * 0.59) + (pval[3] * 0.11));
+		return gray;
+	}
+	
+	public void setPixelGrayScale(){
+		int gray = getGrayPixelValue();
+		for (int i = 1; i < 4; i++){
+			pval[i] = gray;
+		}
+	}
+	
+	public static int getGrayVal(int rgb){
+        int r = getRed(rgb);
+        int g = getGreen(rgb);
+        int b = getBlue(rgb);
+        
+        int gray = (int) ((r * 0.3) + (g * 0.59) + (b * 0.11));
+        
+        return gray;
+	}
 
 	public int getRgbInt() {
 		int p = (pval[ALPHA] << 24) | (pval[RED] << 16) | (pval[GREEN] << 8) | pval[BLUE];
@@ -55,6 +82,11 @@ public class PixelData {
 	public String toString() {
 		String s = pval[ALPHA] + ", " + pval[RED] + ", " + pval[GREEN] + ", " + pval[BLUE];
 		return s;
+	}
+	
+	public static int getRgbInt(int a, int r, int g, int b) {
+		int p = (a << 24) | (r << 16) | (g << 8) | b;
+		return p;
 	}
 
 	public static int getAlpha(int rgb) {

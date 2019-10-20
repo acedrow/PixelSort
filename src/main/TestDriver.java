@@ -1,21 +1,27 @@
-package pixelSorting;
+package main;
 
 import java.awt.image.BufferedImage;
 
 import pixelData.PixelData;
+import pixelSorting.PixelSorts;
+import utils.FileOperations;
+import imageUtils.EdgeDetector;
 
 public class TestDriver {
 	public static void main(String args[]){
 		System.out.println("Main() entry");
 		
+		String imgPath = "C://Users//gamebox//Desktop//Linden Images//";
+		String outPath = "C://Users//gamebox//Desktop//Linden Images//psoutput//";
+		
 		PixelSorts ps = new PixelSorts();
-		FileOperations fo = new FileOperations();
+		FileOperations fo = new FileOperations(imgPath, outPath, true);
 		
 		//READ COUNTER (For titling output file)
 		
 		
 		//FILE IO
-		String testPath = "C://Users//gamebox//Desktop//Linden Images//MOUNTAINS.jpg";
+		String testPath = "C://Users//gamebox//Desktop//Linden Images//AESTHETICWOW6.jpg";
 	
 		BufferedImage img = fo.readImageFromFile(testPath);
 		
@@ -29,9 +35,15 @@ public class TestDriver {
 		
 		//TEST STRAIGHTSORT
 		
-		String outPut = "C://Users//gamebox//Desktop//Linden Images//out.jpg";
-		ps.straightSort(img, 2, false);
-		fo.writeImageToFile(outPut, "jpg", img);
+		//String outPut = "C://Users//gamebox//Desktop//Linden Images//out.jpg";
+		img = ps.straightSort(img, 3, true, 320, 180, 640, 360);
+		fo.writeImageToFile(img);
+		
+		//TEST SOBEL
+//		String outPut = "C://Users//gamebox//Desktop//Linden Images//out.jpg";
+//		EdgeDetector ed = new EdgeDetector();
+//		ed.sobelEdgeDetection(img);
+//		fo.writeImageToFile(img);
 		
 	
 //		System.out.println("width= " + width + ", height= " + height + ", rgb= " + p);

@@ -1,4 +1,4 @@
-package pixelSorting;
+package utils;
 
 public class Constants {
 	
